@@ -12,9 +12,12 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI)
 
+// 引入vuex
+import store from './store';
 
 new Vue({
   el:'#demo',
   render: createElement => createElement(App),
-  router
+  router,
+  store
 })

@@ -440,12 +440,15 @@ export default {
 
       //发送删除请求并刷新
       deleteAccount(this.id).then((res) => {
+
         phAccountRequest().then((res) => {
+          this.nowPage = 1
           this.AccountData = res.data.content.result.map((item) => {
             this.hanhua(item);
             return item;
           });
         });
+
       });
       this.Show = 0;
     },

@@ -99,6 +99,10 @@ export default {
             if(res.data.code === '200'){
               this.loginSuccess()
               this.isloading = false
+              // 将token放入localStorage中
+              localStorage.setItem('token',res.data.token)
+              // 将传回的昵称放入vuex中
+              this.$store.AdminName = res.data.name
               this.$router.replace({
                 name:'homepage'
               })
@@ -131,6 +135,9 @@ export default {
       this.ruleForm.PassWord = "";
     },
   },
+  mounted(){
+    localStorage.clear()
+  }
 };
 </script>
 

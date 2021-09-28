@@ -113,7 +113,8 @@
       >
       </el-input>
     </div>
-    <button @click="add">新增</button>
+
+    <button @click="add">点击确认</button>
   </div>
 </template>
 
@@ -236,7 +237,7 @@ export default {
   box-sizing: border-box;
   border-radius: 5px;
   margin-top: 10px;
-  padding-top: 15px;
+  padding-top: 30px;
   padding-left: 35px;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
@@ -271,5 +272,19 @@ export default {
 }
 .con .el-textarea {
   width: 350px;
+}
+button{
+  padding: 15px;
+  color: white;
+  right: 100px;
+  bottom: 100px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: rgb(235, 146, 161);
+  position: absolute;
+}
+button:hover{
+  background-color: rgb(253, 151, 168);
 }
 </style>

@@ -2,8 +2,8 @@
   <div id="basic-header">
     <el-dropdown  @command="handleCommand">
       <div class="el-dropdown-link">
-        <img src="../assets/images/user.jpg" alt="">
-        <span>叶花弈</span>
+        <img src="../assets/images/user2.jpg" alt="">
+        <span>{{$store.AdminName}}</span>
       </div>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="1">个人中心</el-dropdown-item>
@@ -20,6 +20,8 @@ export default {
   methods: {
     handleCommand(command){
       if(command==3){
+        // 清除token
+        localStorage.clear()
         this.$router.replace({
           name:'loginpage'
         })

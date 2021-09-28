@@ -23,7 +23,7 @@
 
       <el-menu-item-group>
         <el-menu-item index="/homepage/phaccount">账号列表</el-menu-item>
-        <el-menu-item index="1-2">其他</el-menu-item>
+        <el-menu-item index="/homepage/dataviews">数据统计</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
     <el-submenu index="2">

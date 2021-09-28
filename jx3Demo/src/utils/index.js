@@ -8,16 +8,21 @@ export const Service = axios.create({
 
 // 添加请求拦截器
 Service.interceptors.request.use(config => {
-    // 打印输出请求配置信息
-    // console.log(config)
+    // 加塞token
+    let token = localStorage.getItem("token")
+    if (token) {
+        //将token放到请求头发送给服务器,将tokenkey放在请求头中
+        config.headers.token = token;
+        return config;
+    }
     return config
 })
 
 // 添加响应拦截器
 Service.interceptors.response.use(
- response => {
+    response => {
         return response
     },
- error => {
+    error => {
         return error
-})
+    })

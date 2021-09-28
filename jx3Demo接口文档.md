@@ -123,9 +123,7 @@
 {
     "code": 200,
     "message": "登录请求响应成功",
-    "content": {
-        "token":"这是一个假数据token"
-    }
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2V........."
 }
 ```
 
