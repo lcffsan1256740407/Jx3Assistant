@@ -43,7 +43,7 @@
             <el-form-item>
               <el-button
                 type="danger"
-                @click="submitForm('ruleForm')"
+                @click="submitForm"
                 :loading="isloading"
                 >登录</el-button
               >
@@ -52,9 +52,9 @@
         </div>
         <!-- 登录底部 -->
         <div class="login-footer">
-          <span>帮助手册</span>
-          <span>忘记密码</span>
-          <span>点击注册</span>
+          <span @click="waitPerfect">帮助手册</span>
+          <span @click="waitPerfect">忘记密码</span>
+          <span @click="waitPerfect">点击注册</span>
         </div>
       </div>
     </div>
@@ -64,14 +64,23 @@
 </template>
 
 <script>
-import {loginRequest} from '../utils/api.js'
-
+import { loginRequest } from "../utils/api.js";
+// 防抖
+function debounce(fn, delay = 200) {
+  let timeout;
+  return function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      fn.apply(this, arguments);
+    }, delay);
+  };
+}
 export default {
   name: "LoginPage",
   data() {
     return {
-      // 防抖处理,登录加载中...
-      isloading:false,
+      // 登录加载中...
+      isloading: false,
       ruleForm: {
         UserName: "",
         PassWord: "",
@@ -88,14 +97,13 @@ export default {
   },
   methods: {
     // 登录提交
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm: debounce(function () {
+      this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
           // 登录加载中
           this.isloading = true
           // 发送登录请求
           loginRequest(this.ruleForm).then(res=>{
-            console.log(res.data)
             if(res.data.code === '200'){
               this.loginSuccess()
               this.isloading = false
@@ -113,7 +121,7 @@ export default {
           })
         }
       });
-    },
+    }),
     // 登录成功
     loginSuccess() {
       this.$notify({
@@ -134,10 +142,17 @@ export default {
       this.ruleForm.UserName = "";
       this.ruleForm.PassWord = "";
     },
+    // 功能待完善
+    waitPerfect(){
+      this.$message({
+          showClose: true,
+          message: '功能正待完善.....'
+        });
+    }
   },
-  mounted(){
-    localStorage.clear()
-  }
+  mounted() {
+    localStorage.clear();
+  },
 };
 </script>
 
