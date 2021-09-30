@@ -2,6 +2,7 @@ let express = require('express')
 let mysql = require('mysql')
 let jwt = require('jsonwebtoken')
 let app = express()
+
 // 创建jwt生成token的秘钥
 let secret = 'Make Sure Admin'
 // token授权未通过时函数
@@ -52,8 +53,6 @@ app.listen(3000, () => {
 
 // 登录请求(无需token验证)
 app.post('/jx3/login', (req, res) => {
-    console.log('接收到了-->登录<--请求')
-    console.log(req.query)
     sql.query(`select * from manager where username = '${req.query.UserName}' and password = '${req.query.PassWord}'`, (err, result) => {
         if (err) {
             res.send({
@@ -84,7 +83,6 @@ app.post('/jx3/login', (req, res) => {
 
 // 删除账号请求
 app.post('/jx3/delete', (req, res) => {
-    console.log('接收到了-->删除账号<---请求')
     jwt.verify(req.headers.token, secret, (err) => {
         if (!err) {
             sql.query(`delete from accountlist where id = ${parseInt(req.query.id)} `, (err, result) => {
@@ -101,7 +99,6 @@ app.post('/jx3/delete', (req, res) => {
 
 // 修改状态请求
 app.post('/jx3/status', (req, res) => {
-    console.log('接收到了-->修改状态<--请求')
     jwt.verify(req.headers.token, secret, (err) => {
         if (!err) {
             sql.query(`update accountlist set roleState = ${req.query.status} where id = ${parseInt(req.query.id)}`, (err, result) => {
@@ -118,7 +115,6 @@ app.post('/jx3/status', (req, res) => {
 
 // 新增账号请求
 app.post('/jx3/add', (req, res) => {
-    console.log('接收到了-->添加账号<--请求')
     jwt.verify(req.headers.token, secret, (err) => {
         if (!err) {
             sql.query(`insert into accountlist (roleName,roleSect,roleArea,roleTask,roleState,roleAccount,rolePassword,roleMsg) values ('${req.query.roleName}',${req.query.roleSect},${req.query.roleArea},${req.query.roleTask},${req.query.roleState},'${req.query.roleAccount}','${req.query.rolePassword}','${req.query.roleMsg}')`, (err, result) => {
@@ -135,9 +131,6 @@ app.post('/jx3/add', (req, res) => {
 
 // 查询代打账号列表请求
 app.post('/jx3/accountlist', (req, res) => {
-    console.log('接收到了-->查询账号列表<---请求')
-    console.log(req.query)
-    console.log(req.headers.token)
     jwt.verify(req.headers.token, secret, (err) => {
         if (!err) {
             let all = `select * from accountlist where roleName like "%${req.query.roleName ? req.query.roleName : ''}%"`
@@ -193,3 +186,26 @@ app.post('/jx3/accountlist', (req, res) => {
     })
 })
 
+// 查询不同状态账号数据条数
+app.get('/jx3/queryStatus', (req, res) => {
+    console.log("查询数据条数中")
+    jwt.verify(req.headers.token, secret, async (err) => {
+        if (!err) {
+            let arry = []
+            for (let n = 0; n <= 3; n++) {
+                await sql.query(`select * from accountlist where roleState = ${n}`,(err,result)=>{
+                    arry.push(result.length)
+                    if(n == 3){
+                        res.send({
+                            code:'200',
+                            message:'不同状态账号数据条数查询成功',
+                            content:arry
+                        })
+                    }
+                })
+            } 
+        } else {
+            tokenError(res)
+        }
+    })
+})

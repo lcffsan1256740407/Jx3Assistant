@@ -54,3 +54,11 @@ export let addAccount = data => {
         }
     })
 }
+
+// 查询不同状态账号数据条数
+export let queryStatus = ()=>{
+    return Service({
+        url:'/jx3/queryStatus',
+        method:'get'
+    })
+}
