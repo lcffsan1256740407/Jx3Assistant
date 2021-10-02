@@ -75,6 +75,8 @@ function debounce(fn, delay = 200) {
     }, delay);
   };
 }
+// 节流标识
+let symbol = true
 export default {
   name: "LoginPage",
   data() {
@@ -144,10 +146,16 @@ export default {
     },
     // 功能待完善
     waitPerfect(){
-      this.$message({
+      if(symbol){
+         this.$message({
           showClose: true,
           message: '功能正待完善.....'
         });
+        setTimeout(() => {
+          symbol = true
+        }, 2500);
+      }
+      symbol = false
     }
   },
   mounted() {

@@ -15,6 +15,9 @@
 </template>
 
 <script>
+// 节流标识
+let symbol = true
+
 export default {
   name: "BasicHeader",
   methods: {
@@ -26,10 +29,17 @@ export default {
           name:'loginpage'
         })
       }else{
-        this.$message('功能正待开发中..');
+        if(symbol){
+          this.$message('功能正待开发中..');
+          setTimeout(() => {
+            symbol = true
+          }, 2500);
+        }
+        symbol = false
       }
-    }
-  },
+    },
+
+  }
 };
 </script>
 
