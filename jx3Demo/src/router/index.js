@@ -14,6 +14,7 @@ import DataViews from "../pages/DataView/DataViews"
 
 // 创建路由
 const router = new VueRouter({
+    mode:'history',
     routes: [
         // 打开页面的重定向
         { path: '/', redirect: '/loginpage' },

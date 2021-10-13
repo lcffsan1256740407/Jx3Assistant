@@ -7,14 +7,15 @@ export const Service = axios.create({
 })
 
 // 添加请求拦截器
-Service.interceptors.request.use(config => {
-    // 加塞token
-    let token = localStorage.getItem("token")
-    if (token) {
-        //将token放到请求头发送给服务器,将tokenkey放在请求头中
-        config.headers.token = token;
-        return config;
-    }
+Service.interceptors.request.use(
+    config => {
+        // 加塞token
+        let token = localStorage.getItem("token")
+        if (token) {
+            //将token放到请求头发送给服务器,将tokenkey放在请求头中
+            config.headers.token = token;
+            return config;
+        }
     return config
 })
 

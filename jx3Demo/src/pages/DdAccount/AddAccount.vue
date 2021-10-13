@@ -1,120 +1,120 @@
 <template>
   <div id="addaccount">
-    <!-- 角色名称 -->
-    <div class="role con">
-      <span>角色名称:</span>
-      <el-input
-        placeholder="请输入角色名称"
-        v-model="roleForm.roleName"
-        clearable
-      >
-      </el-input>
-    </div>
-    <!-- 账号 -->
-    <div class="role con">
-      <span>游戏账号:</span>
-      <el-input
-        placeholder="请输入账号"
-        v-model="roleForm.roleAccount"
-        clearable
-      >
-      </el-input>
-    </div>
-    <!-- 密码 -->
-    <div class="role con">
-      <span>游戏密码:</span>
-      <el-input
-        placeholder="请输入密码"
-        v-model="roleForm.rolePassword"
-        clearable
-      >
-      </el-input>
-    </div>
-    <!-- 门派 -->
-    <div class="sect con">
-      <span>角色门派:</span>
-      <el-select
-        v-model="roleForm.roleSect"
-        clearable
-        placeholder="请选择门派"
-        popper-class="select"
-      >
-        <el-option
-          v-for="item in Sect"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+    <el-form
+      :model="roleForm"
+      :rules="rules"
+      ref="ruleForm"
+      label-width="100px"
+      class="demo-ruleForm"
+    >
+      <!-- 角色名称 -->
+      <el-form-item label="角色名称" prop="roleName">
+        <el-input
+          placeholder="请输入角色名称"
+          v-model="roleForm.roleName"
+          clearable
         >
-        </el-option>
-      </el-select>
-    </div>
-    <!-- 区服 -->
-    <div class="area con">
-      <span>角色区服:</span>
-      <el-select
-        v-model="roleForm.roleArea"
-        clearable
-        placeholder="请选择区服"
-        popper-class="select"
-      >
-        <el-option
-          v-for="item in Area"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+        </el-input>
+      </el-form-item>
+      <!-- 账号 -->
+      <el-form-item label="角色账号" prop="roleAccount">
+        <el-input
+          placeholder="请输入账号"
+          v-model="roleForm.roleAccount"
+          clearable
         >
-        </el-option>
-      </el-select>
-    </div>
-    <!-- 业务 -->
-    <div class="task con">
-      <span>当前业务:</span>
-      <el-select
-        v-model="roleForm.roleTask"
-        clearable
-        placeholder="请选择业务"
-        popper-class="select"
-      >
-        <el-option
-          v-for="item in Task"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+        </el-input>
+      </el-form-item>
+      <!-- 密码 -->
+      <el-form-item label="角色密码" prop="rolePassword">
+        <el-input
+          placeholder="请输入密码"
+          v-model="roleForm.rolePassword"
+          clearable
         >
-        </el-option>
-      </el-select>
-    </div>
-    <!-- 完成状态 -->
-    <div class="state con">
-      <span>当前状态:</span>
-      <el-select
-        v-model="roleForm.roleState"
-        clearable
-        placeholder="请选择状态"
-        popper-class="select"
-      >
-        <el-option
-          v-for="item in State"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+        </el-input>
+      </el-form-item>
+      <!-- 门派 -->
+      <el-form-item label="角色门派" prop="roleSect">
+        <el-select
+          v-model="roleForm.roleSect"
+          clearable
+          placeholder="请选择门派"
+          popper-class="select"
         >
-        </el-option>
-      </el-select>
-    </div>
-    <!-- 备注 -->
-    <div class="role con">
-      <span>角色备注:</span>
-      <el-input
-        type="textarea"
-        resize="none"
-        v-model="roleForm.roleMsg"
-        :rows="6"
-      >
-      </el-input>
-    </div>
-
-    <button @click="add">点击确认</button>
+          <el-option
+            v-for="item in Sect"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <!-- 区服 -->
+      <el-form-item label="角色区服" prop="roleArea">
+        <el-select
+          v-model="roleForm.roleArea"
+          clearable
+          placeholder="请选择区服"
+          popper-class="select"
+        >
+          <el-option
+            v-for="item in Area"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <!-- 业务 -->
+      <el-form-item label="当前业务" prop="roleTask">
+        <el-select
+          v-model="roleForm.roleTask"
+          clearable
+          placeholder="请选择业务"
+          popper-class="select"
+        >
+          <el-option
+            v-for="item in Task"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <!-- 完成状态 -->
+      <el-form-item label="当前状态" prop="roleState">
+        <el-select
+          v-model="roleForm.roleState"
+          clearable
+          placeholder="请选择状态"
+          popper-class="select"
+        >
+          <el-option
+            v-for="item in State"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <!-- 备注 -->
+      <el-form-item label="角色备注" prop="roleMsg">
+        <el-input
+          type="textarea"
+          resize="none"
+          v-model="roleForm.roleMsg"
+          :rows="6"
+        >
+        </el-input>
+      </el-form-item>
+    </el-form>
+    <!-- 确认按钮 -->
+    <button @click="add('ruleForm')">点击确认</button>
   </div>
 </template>
 
@@ -135,6 +135,31 @@ export default {
         roleMsg: "",
         roleAccount: "",
         rolePassword: "",
+      },
+      // 表单规则
+      rules: {
+        roleName: [
+          { required: true, message: "名称不可为空", trigger: "blur" },
+        ],
+        roleSect: [
+          { required: true, message: "门派不可为空", trigger: "change" },
+        ],
+        roleArea: [
+          { required: true, message: "区服不可为空", trigger: "change" },
+        ],
+        roleTask: [
+          { required: true, message: "业务不可为空", trigger: "change" },
+        ],
+        roleState: [
+          { required: true, message: "状态不可为空", trigger: "change" },
+        ],
+        roleMsg: [{ required: true, message: "备注不可为空", trigger: "blur" }],
+        roleAccount: [
+          { required: true, message: "账号不可为空", trigger: "blur" },
+        ],
+        rolePassword: [
+          { required: true, message: "密码不可为空", trigger: "blur" },
+        ],
       },
       // 门派数组
       Sect: [
@@ -215,13 +240,17 @@ export default {
     };
   },
   methods: {
-    add() {
-      //完成账号添加
-      addAccount(this.roleForm).then((res) => {
-        console.log(res.data.code);
-        if (res.data.code == "200") {
-          this.$router.replace({
-            name: "phaccount",
+    add(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 完成账号添加
+          addAccount(this.roleForm).then((res) => {
+            console.log(res.data.code);
+            if (res.data.code == "200") {
+              this.$router.replace({
+                name: "phaccount",
+              });
+            }
           });
         }
       });
@@ -258,22 +287,7 @@ export default {
   border-color: rgb(235, 146, 161);
   background-color: rgb(235, 146, 161);
 }
-.con {
-  display: flex;
-  align-items: center;
-  margin: 15px 10px;
-}
-.con span {
-  text-align: center;
-  margin-right: 10px;
-}
-.con .el-input {
-  width: 222px;
-}
-.con .el-textarea {
-  width: 350px;
-}
-button{
+button {
   padding: 15px;
   color: white;
   right: 100px;
@@ -284,7 +298,13 @@ button{
   background-color: rgb(235, 146, 161);
   position: absolute;
 }
-button:hover{
+button:hover {
   background-color: rgb(253, 151, 168);
+}
+#addaccount>>>.el-input__inner{
+  width: 220px;
+}
+#addaccount>>>.el-textarea__inner{
+  width: 500px;
 }
 </style>

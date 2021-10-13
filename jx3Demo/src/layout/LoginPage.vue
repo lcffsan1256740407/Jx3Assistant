@@ -52,9 +52,9 @@
         </div>
         <!-- 登录底部 -->
         <div class="login-footer">
-          <span @click="waitPerfect">帮助手册</span>
-          <span @click="waitPerfect">忘记密码</span>
-          <span @click="waitPerfect">点击注册</span>
+          <span @click="waitPerfect" class="wait">帮助手册</span>
+          <span @click="waitPerfect" class="wait">忘记密码</span>
+          <span @click="waitPerfect" class="wait">点击注册</span>
         </div>
       </div>
     </div>
@@ -71,6 +71,7 @@ function debounce(fn, delay = 200) {
   return function () {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
+      console.log(this)
       fn.apply(this, arguments);
     }, delay);
   };
@@ -259,5 +260,8 @@ export default {
 }
 .login-footer span:hover {
   color: rgb(245, 108, 108);
+}
+.wait{
+  user-select: none;
 }
 </style>
